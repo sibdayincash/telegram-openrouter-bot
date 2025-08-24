@@ -16,15 +16,16 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # --- Ключи API ---
-# ВАЖНО: При развертывании проекта на сервере (Render и т.д.)
-# эти ключи нужно устанавливать как переменные окружения, а не хранить в коде.
-TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "7563880680:AAFpM3h7QXmOVtKdWv5aGYDj-J_C61JXp9o")
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "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")
+# Ключи должны быть установлены как переменные окружения перед запуском.
+# Инструкцию по запуску я предоставлю после завершения всех изменений.
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
+# Проверяем, что ключи установлены. Если нет - бот не запустится.
 if not TELEGRAM_BOT_TOKEN:
-    raise ValueError("Не найден токен для Telegram. Установите переменную окружения TELEGRAM_BOT_TOKEN.")
+    raise ValueError("Переменная окружения TELEGRAM_BOT_TOKEN не установлена! Бот не может запуститься.")
 if not OPENROUTER_API_KEY:
-    raise ValueError("Не найден ключ для OpenRouter. Установите переменную окружения OPENROUTER_API_KEY.")
+    raise ValueError("Переменная окружения OPENROUTER_API_KEY не установлена! Бот не может запуститься.")
 
 
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):

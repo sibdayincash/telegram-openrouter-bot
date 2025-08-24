@@ -5,15 +5,17 @@ import logging
 # Настройка логгирования
 logger = logging.getLogger(__name__)
 
-# Получаем ключ из переменных окружения
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "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")
+# Получаем ключ из переменных окружения, который должен быть установлен при запуске основного скрипта.
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
 async def _call_openrouter(system_prompt: str, user_prompt: str) -> str:
     """
     Универсальная функция для вызова API OpenRouter.
     """
     if not OPENROUTER_API_KEY:
-        raise ValueError("Не найден ключ для OpenRouter.")
+        # Эта проверка на случай, если модуль используется отдельно.
+        # Основной скрипт уже проверяет наличие ключа при старте.
+        raise ValueError("Ключ OpenRouter API не найден в переменных окружения.")
 
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
